@@ -1,5 +1,5 @@
 local Chicken = {}
---local sprite = require("sprite")
+
 local utils = require("utils")
 
 
@@ -37,8 +37,7 @@ end
 
 
 function Chicken:load()
---	img = love.graphics.newImage(sprite.chicken)
---	img:setFilter("nearest")
+
 end
 
 function Chicken:draw()
@@ -47,25 +46,30 @@ function Chicken:draw()
 end
 
 function Chicken:update(delta_time)
-	--local distance = utils.point_distance(self.x, self.y, mouse_x, mouse_y)
+
 	if mouse_x < self.x and self.sx > 0 then self.sx = -self.sx
 	elseif mouse_x > self.x and self.sx < 0 then self.sx = -self.sx
 	end
-	--self.sx = -1 * (mouse_x-self.x)
+
 	local increment = math.deg(12)
 	local amplitude = 2	
 	self.t = self.t + increment * delta_time
 	local shift = amplitude * math.sin(self.t)
-	--if distance >= 1 then
-		local direction = utils.point_direction(self.x, self.y, mouse_x, mouse_y)
-		if (direction < 45 and direction > -45) or direction < -135 or direction > 135 then
-			self.x = self.x + utils.lengthdir_x(direction, self.speed) + utils.lengthdir_x(direction + 90, shift)
-			self.y = self.y + utils.lengthdir_y(direction, self.speed) + utils.lengthdir_y(direction + 90, shift)
-		else
-			self.x = self.x + utils.lengthdir_x(direction, self.speed) + utils.lengthdir_y(direction + 90, shift)
-			self.y = self.y + utils.lengthdir_y(direction, self.speed) + utils.lengthdir_x(direction + 90, shift)
-		end
-	--end
+
+	local direction = utils.point_direction(self.x, self.y, mouse_x, mouse_y)
+	if (direction < 45 and direction > -45) or direction < -135 or direction > 135 then
+		self.x = self.x + utils.lengthdir_x(direction, self.speed) + utils.lengthdir_x(direction + 90, shift)
+		self.y = self.y + utils.lengthdir_y(direction, self.speed) + utils.lengthdir_y(direction + 90, shift)
+	else
+		self.x = self.x + utils.lengthdir_x(direction, self.speed) + utils.lengthdir_y(direction + 90, shift)
+		self.y = self.y + utils.lengthdir_y(direction, self.speed) + utils.lengthdir_x(direction + 90, shift)
+	end
+
+	if self.x > love.window.getWidth() then self.x = love.window.getWidth() end
+	if self.x < 0 then self.x = 0 end
+	if self.y > love.window.getHeight() - 60 then self.y = love.window.getHeight() - 60 end
+	if self.y < 20 then self.y = 20 end
+
 end
 
 -- c : le chicken à comparer avec self
