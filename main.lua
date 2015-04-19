@@ -12,13 +12,13 @@ function love.load()
 	local sprite = love.graphics.newImage(asset.chicken)
 	background = love.graphics.newImage(asset.background)
 
-	addItemTo(Chicken:new(400, 300, sprite, 2, 0, 2, 2), chickenPoule)
-	addItemTo(Chicken:new(200, 400, sprite, 2, 0, 2, 2), chickenPoule)
---	addItemTo(Chicken:new(100, 500, sprite, 0, -45, 8, 8), chickenPoule)
---	addItemTo(Chicken:new(200, 300, sprite, 0, 0, 3, 3), chickenPoule)
---	addItemTo(Chicken:new(300, 500, sprite, 0, 130, 8, 8), chickenPoule)
---	addItemTo(Chicken:new(150, 200, sprite, 0, -130, 16, 16), chickenPoule)
---	addItemTo(Chicken:new(100, 350, sprite, 0, 90, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(400, 300, sprite, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(200, 400, sprite, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(100, 500, sprite, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(200, 300, sprite, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(300, 500, sprite, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(300, 500, sprite, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(300, 500, sprite, 1.5, 0, 2, 2), chickenPoule)
 
 
 
@@ -31,6 +31,14 @@ function love.update(delta_time)
 		for k,v in ipairs(chickenPoule) do
 			--print(k)
 			v:update(delta_time)
+		end
+				
+		for k,v in ipairs(chickenPoule) do
+			for k2, v2 in ipairs(chickenPoule) do
+				if not (k == k2) then
+					v:collide(v2)
+				end
+			end
 		end
 	end
 end

@@ -21,7 +21,10 @@ function Chicken:new(x, y, img, speed, d, sx, sy)
 		sx= sx, --default 0
 		sy= sy, --default 0
 		t = 0,
+		r = img:getWidth()*sx/2,
+		cr = 0.5*img:getWidth()*sx/2
 	}
+	
 	if speed == nil then speed =0 end
 	if d == nil then d =0 end
 	if sx == nil then sx =1 end
@@ -64,5 +67,26 @@ function Chicken:update(delta_time)
 		end
 	--end
 end
+
+-- c : le chicken à comparer avec self
+function Chicken:collide(c)
+	if utils.circles_collision(self.x, self.y, self.r, c.x, c.y, c.cr) then
+		if c.x > self.x then
+			c.x = c.x + (self.y - c.y)/2
+		else
+			c.x = c.x - (self.y - c.y)/2
+		end
+		if c.y > self.y then
+			c.y = c.y + (self.x - c.x)/2
+		else
+			c.y = c.y - (self.x - c.x)/2
+		end
+		
+		
+	end
+	if c.x == self.x then c.x = c.x+1 end
+	if c.y == self.y then c.y = c.y+1 end
+end
+
 
 return Chicken
