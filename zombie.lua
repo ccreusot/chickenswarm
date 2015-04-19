@@ -28,12 +28,12 @@ function Zombie:new(x, y, img, quads, speed, d, sx, sy, hp)
 		hp= hp
 	}
 
-	if direction == nil then direction =0 end
-	if speed == nil then speed =0 end
-	if d == nil then d =0 end
-	if sx == nil then sx =1 end
-	if sy == nil then sy =1 end
-	if hp == nil then hp =1 end
+	if direction == nil then newObj.direction =0 end
+	if speed == nil then newObj.speed =0 end
+	if d == nil then newObj.d =0 end
+	if sx == nil then newObj.sx =1 end
+	if sy == nil then newObj.sy =1 end
+	if hp == nil then newObj.hp =1 end
 
 	self.__index = self
 	return setmetatable(newObj, self)
@@ -88,7 +88,14 @@ end
 
 function Zombie:die()
 
-	zombiePoule.remove(self)
+	local index = 0
+	for k, v in ipairs(zombiePoule) do
+		if v == self then
+			index = k
+		end
+	end
+	table.remove(zombiePoule, index)
+	self = nil
 	collectgarbage("collect")
 end
 

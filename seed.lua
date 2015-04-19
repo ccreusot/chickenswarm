@@ -24,9 +24,9 @@ function Seed:new(x, y, img, d, sx, sy, active)
 		cr = 0.2*img:getWidth()*sx/2
 	}
 
-	if d == nil then d =0 end
-	if sx == nil then sx =1 end
-	if sy == nil then sy =1 end
+	if d == nil then newObj.d =0 end
+	if sx == nil then newObj.sx =1 end
+	if sy == nil then newObj.sy =1 end
 
 	self.__index = self
 	return setmetatable(newObj, self)

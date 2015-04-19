@@ -82,8 +82,8 @@ function love.update(delta_time)
 		v:update(delta_time)
 	end
 	for k,v in ipairs(chickenPoule) do
-		for k2, v2 in ipairs(zombiePoule) do
-			if not (k == k2) then
+		if #zombiePoule > 0 then
+			for k2, v2 in ipairs(zombiePoule) do
 				v:collideZ(v2)
 			end
 		end

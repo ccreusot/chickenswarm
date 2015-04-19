@@ -22,9 +22,9 @@ function Farmer:new(x, y, img, quads, d, sx, sy)
 		index_img= 1,
 		animate= false
 	}
-	if d == nil then d =0 end
-	if sx == nil then sx =1 end
-	if sy == nil then sy =1 end
+	if d == nil then newObj.d =0 end
+	if sx == nil then newObj.sx =1 end
+	if sy == nil then newObj.sy =1 end
 
 	self.__index = self
 	return setmetatable(newObj, self)
