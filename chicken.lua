@@ -47,7 +47,7 @@ function Chicken:draw()
 end
 
 function Chicken:update(delta_time)
-	-- love.audio.play(self.sound)
+	love.audio.play(self.sound)
 	if mouse_x < self.x and self.sx > 0 then self.sx = -self.sx
 	elseif mouse_x > self.x and self.sx < 0 then self.sx = -self.sx
 	end
