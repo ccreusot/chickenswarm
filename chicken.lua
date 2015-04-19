@@ -1,6 +1,6 @@
 local Chicken = {}
 --local sprite = require("sprite")
-
+local utils = require("utils")
 
 
 -- Methode de création de poulet
@@ -20,8 +20,7 @@ function Chicken:new(x, y, img, speed, d, sx, sy)
 		d= d, -- default 0
 		sx= sx, --default 0
 		sy= sy, --default 0
-		t = 0
-		direction = 0
+		t = 0,
 	}
 	if speed == nil then speed =0 end
 	if d == nil then d =0 end
@@ -40,25 +39,31 @@ function Chicken:load()
 end
 
 function Chicken:draw()
-	love.graphics.draw(self.img, self.x, self.y, self.d*raddeg, self.sx, self.sy)
+	local offsetX = (self.img:getWidth()*self.sx/2)
+	love.graphics.draw(self.img, self.x+offsetX, self.y, self.d*raddeg, self.sx, self.sy)
+	print(self.x-(self.img:getWidth()/2))
 end
 
 function Chicken:update(delta_time)
-	local distance = utils.point_distance(self.x, self.y, mouse_x, mouse_y)
-	local increment = math.deg(12)
-	local amplitude = 2
-
-	t = t + increment * delta_time
-	local shift = amplitude * math.sin(t)
-	if distance >= 1 then
-		if (direction < 45 and direction > -45) or direction < -135 or direction > 135 then
-			self.x = self.x + utils.lengthdir_x(direction, 1) + utils.lengthdir_x(direction + 90, shift)
-			self.y = self.y + utils.lengthdir_y(direction, 1) + utils.lengthdir_y(direction + 90, shift)
-		else
-			self.x = self.x + utils.lengthdir_x(direction, 1) + utils.lengthdir_y(direction + 90, shift)
-			self.y = self.y + utils.lengthdir_y(direction, 1) + utils.lengthdir_x(direction + 90, shift)
-		end
+	--local distance = utils.point_distance(self.x, self.y, mouse_x, mouse_y)
+	if mouse_x < self.x and self.sx > 0 then self.sx = -self.sx
+	elseif mouse_x > self.x and self.sx < 0 then self.sx = -self.sx
 	end
+	--self.sx = -1 * (mouse_x-self.x)
+	local increment = math.deg(12)
+	local amplitude = 2	
+	self.t = self.t + increment * delta_time
+	local shift = amplitude * math.sin(self.t)
+	--if distance >= 1 then
+		local direction = utils.point_direction(self.x, self.y, mouse_x, mouse_y)
+		if (direction < 45 and direction > -45) or direction < -135 or direction > 135 then
+			self.x = self.x + utils.lengthdir_x(direction, self.speed) + utils.lengthdir_x(direction + 90, shift)
+			self.y = self.y + utils.lengthdir_y(direction, self.speed) + utils.lengthdir_y(direction + 90, shift)
+		else
+			self.x = self.x + utils.lengthdir_x(direction, self.speed) + utils.lengthdir_y(direction + 90, shift)
+			self.y = self.y + utils.lengthdir_y(direction, self.speed) + utils.lengthdir_x(direction + 90, shift)
+		end
+	--end
 end
 
 return Chicken
