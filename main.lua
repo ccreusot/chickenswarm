@@ -20,6 +20,7 @@ function love.load()
 	love.audio.setVolume( 1 )
 	love.audio.play(bgm)
 	bgm:setLooping( 1 )
+
 	local spritePoulet = love.graphics.newImage(asset.chicken) -- et mon Q c'est du poulet?
 	local soundPoulet = love.audio.newSource(sound.cot, "static")
 	local spriteFermier = love.graphics.newImage(asset.farmer)
@@ -41,7 +42,7 @@ function love.load()
 
 	farmerPoule = Farmer:new(400, 0, spriteFermier, 0, 5, 5)
 
-	zombie = Zombie:new(700, 400, spriteZombie, zombieQuads, 0.25, 0, 5, 5)
+	zombie = Zombie:new(700, 400, spriteZombie, zombieQuads, 0.05, 0, 5, 5)
 	zombie:setTarget(farmerPoule)
 end
 
