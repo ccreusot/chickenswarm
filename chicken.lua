@@ -11,7 +11,7 @@ local utils = require("utils")
 -- d : angle de rotation de depart en degré. default 0
 -- sx : scaling en x du sprite. default 1
 -- sy : scaling en y du sprite. default 1
-function Chicken:new(x, y, img, speed, d, sx, sy, sound)
+function Chicken:new(x, y, img, speed, d, sx, sy, sound, power)
 	newObj = {
 		x= x,
 		y= y,
@@ -23,13 +23,15 @@ function Chicken:new(x, y, img, speed, d, sx, sy, sound)
 		sound= sound, -- default nil
 		t = 0,
 		r = img:getWidth()*sx/2,
-		cr = 0.2*img:getWidth()*sx/2
+		cr = 0.2*img:getWidth()*sx/2,
+		power= power
 	}
 	
 	if speed == nil then speed =0 end
 	if d == nil then d =0 end
 	if sx == nil then sx =1 end
 	if sy == nil then sy =1 end
+	if power == nil then power =1 end
 
 	self.__index = self
 	return setmetatable(newObj, self)
@@ -83,6 +85,20 @@ function Chicken:collide(c, delta_time)
 	if c.x == self.x then c.x = c.x+1 end
 	if c.y == self.y then c.y = c.y+1 end
 end
+
+
+function Chicken:collideZ(z, delta_time)
+	print(zombiePoule)
+	if z == nil then return end
+	if utils.circles_collision(self.x, self.y, self.r, z.x, z.y, z.cr) then
+		z.hp = z.hp - self.power
+	end
+	if z.hp <= 0 then
+		for k,v in ipairs(zombiePoule) do if v == z then zombiePoule.remove( k ) return end end
+
+	end
+end
+
 
 
 return Chicken

@@ -10,7 +10,7 @@ local utils = require("utils")
 -- d : angle de rotation de depart en degré. default 0
 -- sx : scaling en x du sprite. default 1
 -- sy : scaling en y du sprite. default 1
-function Zombie:new(x, y, img, quads, speed, d, sx, sy)
+function Zombie:new(x, y, img, quads, speed, d, sx, sy, hp)
 	newObj = {
 		x= x,
 		y= y,
@@ -25,6 +25,7 @@ function Zombie:new(x, y, img, quads, speed, d, sx, sy)
 		direction= 0,
 		target= nil,
 		index_img= 1,
+		hp= hp
 	}
 
 	if direction == nil then direction =0 end
@@ -32,6 +33,7 @@ function Zombie:new(x, y, img, quads, speed, d, sx, sy)
 	if d == nil then d =0 end
 	if sx == nil then sx =1 end
 	if sy == nil then sy =1 end
+	if hp == nil then hp =1 end
 
 	self.__index = self
 	return setmetatable(newObj, self)
@@ -82,6 +84,12 @@ end
 function Zombie:setTarget(target)
 	self.target = target
 	self.direction = utils.point_direction(self.x, self.y, self.target.x, self.target.y)
+end
+
+function Zombie:die()
+
+	zombiePoule.remove(self)
+	collectgarbage("collect")
 end
 
 return Zombie

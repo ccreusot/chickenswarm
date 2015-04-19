@@ -11,7 +11,8 @@ mouse_x = 0
 mouse_y = 0
 
 local zombieQuads = {} -- l'ensemble des quads de l'image zombie
-local chickenPoule = {} -- le pull de poulet
+local chickenPoule = {} -- le pull de poulets
+zombiePoule = {} -- le pull de zombies
 local farmerPoule = 0 -- le fermier
 local background = nil
 
@@ -51,8 +52,12 @@ function love.load()
 
 	farmerPoule = Farmer:new(400, 0, spriteFermier, fermierQuads, 0, 5, 5)
 
-	zombie = Zombie:new(700, 400, spriteZombie, zombieQuads, 0.15, 0, 5, 5)
-	zombie:setTarget(farmerPoule)
+	
+	addItemTo(Zombie:new(700, 400, spriteZombie, zombieQuads, 0.15, 0, 5, 5, 1), zombiePoule)
+	for k,v in ipairs(zombiePoule) do
+		v:setTarget(farmerPoule)
+	end
+
 end
 
 function love.mousepressed(x, y, button)
@@ -62,6 +67,17 @@ function love.mousepressed(x, y, button)
 end
 
 function love.update(delta_time)
+	for k,v in ipairs(zombiePoule) do
+		--print(k)
+		v:update(delta_time)
+	end
+	for k,v in ipairs(chickenPoule) do
+		for k2, v2 in ipairs(zombiePoule) do
+			if not (k == k2) then
+				v:collideZ(v2)
+			end
+		end
+	end
 	if love.mouse.isDown('l') then
 		mouse_x = love.mouse.getX()
 		mouse_y = love.mouse.getY()
@@ -69,6 +85,7 @@ function love.update(delta_time)
 			--print(k)
 			v:update(delta_time)
 		end
+		
 				
 		for k,v in ipairs(chickenPoule) do
 			for k2, v2 in ipairs(chickenPoule) do
@@ -79,15 +96,17 @@ function love.update(delta_time)
 		end
 	end
 	farmerPoule:update(delta_time)
-	zombie:update(delta_time)
 end
 
 function love.draw()
 	love.graphics.draw(background, 0, 0, 0, 2.5)
 	farmerPoule:draw()
-	zombie:draw()
 
 	for k,v in ipairs(chickenPoule) do
+		--print(k)
+		v:draw()
+	end
+	for k,v in ipairs(zombiePoule) do
 		--print(k)
 		v:draw()
 	end
