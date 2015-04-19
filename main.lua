@@ -11,6 +11,10 @@ local chickenPoule = {} -- le pull de poulet
 local farmerPoule = 0; -- le fermier
 
 function love.load()
+	bgm = love.audio.newSource(sound.bg, "stream")
+	love.audio.setVolume( 1 )
+	love.audio.play(bgm)
+	bgm:setLooping( 1 )
 	local spritePoulet = love.graphics.newImage(asset.chicken) -- et mon Q c'est du poulet?
 	local soundPoulet = love.audio.newSource(sound.cot, "static")
 	local spriteFermier = love.graphics.newImage(asset.farmer)
