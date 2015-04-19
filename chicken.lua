@@ -39,9 +39,8 @@ function Chicken:load()
 end
 
 function Chicken:draw()
-	local offsetX = (self.img:getWidth()*self.sx/2)
-	love.graphics.draw(self.img, self.x+offsetX, self.y, self.d*raddeg, self.sx, self.sy)
-	print(self.x-(self.img:getWidth()/2))
+	local offsetX = (self.img:getWidth() / 2)
+	love.graphics.draw(self.img, self.x, self.y, self.d*raddeg, self.sx, self.sy, offsetX)
 end
 
 function Chicken:update(delta_time)

@@ -13,7 +13,7 @@ function love.load()
 	background = love.graphics.newImage(asset.background)
 
 	addItemTo(Chicken:new(400, 300, sprite, 2, 0, 2, 2), chickenPoule)
---	addItemTo(Chicken:new(200, 400, sprite, 0, 0, 4, 4), chickenPoule)
+	addItemTo(Chicken:new(200, 400, sprite, 2, 0, 2, 2), chickenPoule)
 --	addItemTo(Chicken:new(100, 500, sprite, 0, -45, 8, 8), chickenPoule)
 --	addItemTo(Chicken:new(200, 300, sprite, 0, 0, 3, 3), chickenPoule)
 --	addItemTo(Chicken:new(300, 500, sprite, 0, 130, 8, 8), chickenPoule)
