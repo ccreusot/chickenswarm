@@ -26,6 +26,7 @@ function love.load()
 	local soundPoulet = love.audio.newSource(sound.cot, "static")
 	local spriteFermier = love.graphics.newImage(asset.farmer)
 	local spriteZombie = love.graphics.newImage(asset.zombie)
+	spriteSeed = love.graphics.newImage(asset.seed)
 	background = love.graphics.newImage(asset.background)
 
 	-- Zombie quads for animations
