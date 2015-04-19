@@ -2,6 +2,7 @@ love.graphics.setDefaultFilter("nearest") -- set le filtre d'affichage par defau
 
 local utils = require("utils")
 local asset = require("sprite")
+local sound = require("sound")
 local Chicken = require("chicken")
 local Farmer = require("farmer")
 local Zombie = require("zombie")
@@ -15,11 +16,15 @@ local farmerPoule = 0 -- le fermier
 local background = nil
 
 function love.load()
+	bgm = love.audio.newSource(sound.bg, "stream")
+	love.audio.setVolume( 1 )
+	love.audio.play(bgm)
+	bgm:setLooping( 1 )
 	local spritePoulet = love.graphics.newImage(asset.chicken) -- et mon Q c'est du poulet?
+	local soundPoulet = love.audio.newSource(sound.cot, "static")
 	local spriteFermier = love.graphics.newImage(asset.farmer)
 	local spriteZombie = love.graphics.newImage(asset.zombie)
 	background = love.graphics.newImage(asset.background)
-
 
 	table.insert(zombieQuads, love.graphics.newQuad(0, 0, 16, 16, spriteZombie:getWidth(), spriteZombie:getHeight()))
 	table.insert(zombieQuads, love.graphics.newQuad(16, 0, 16, 16, spriteZombie:getWidth(), spriteZombie:getHeight()))
@@ -36,7 +41,7 @@ function love.load()
 
 	farmerPoule = Farmer:new(400, 0, spriteFermier, 0, 5, 5)
 
-	zombie = Zombie:new(800, 300, spriteZombie, zombieQuads, 0.25, 0, 5, 5)
+	zombie = Zombie:new(700, 400, spriteZombie, zombieQuads, 0.25, 0, 5, 5)
 	zombie:setTarget(farmerPoule)
 end
 

@@ -11,7 +11,7 @@ local utils = require("utils")
 -- d : angle de rotation de depart en degré. default 0
 -- sx : scaling en x du sprite. default 1
 -- sy : scaling en y du sprite. default 1
-function Chicken:new(x, y, img, speed, d, sx, sy)
+function Chicken:new(x, y, img, speed, d, sx, sy, sound)
 	newObj = {
 		x= x,
 		y= y,
@@ -20,6 +20,7 @@ function Chicken:new(x, y, img, speed, d, sx, sy)
 		d= d, -- default 0
 		sx= sx, --default 0
 		sy= sy, --default 0
+		sound= sound, -- default nil
 		t = 0,
 		r = img:getWidth()*sx/2,
 		cr = 0.2*img:getWidth()*sx/2
@@ -46,7 +47,7 @@ function Chicken:draw()
 end
 
 function Chicken:update(delta_time)
-
+	love.audio.play(self.sound)
 	if mouse_x < self.x and self.sx > 0 then self.sx = -self.sx
 	elseif mouse_x > self.x and self.sx < 0 then self.sx = -self.sx
 	end
