@@ -8,6 +8,7 @@ local chickenPoule = {} -- le pull de poulet
 
 function love.load()
 	local sprite = love.graphics.newImage(asset.chicken)
+	background = love.graphics.newImage(asset.background)
 
 	addItemTo(Chicken:new(400, 300, sprite, 0, 45, 4, 4), chickenPoule)
 	addItemTo(Chicken:new(200, 400, sprite, 0, 0, 4, 4), chickenPoule)
@@ -26,6 +27,7 @@ function love.update()
 end
 
 function love.draw()
+	love.graphics.draw(background, 0, 0, 0, 2.5)
 	for k,v in ipairs(chickenPoule) do
 		--print(k)
 		v:draw()
