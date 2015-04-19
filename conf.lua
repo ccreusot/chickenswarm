@@ -36,5 +36,17 @@ function love.conf(t)
     t.modules.timer = true             -- Enable the timer module (boolean)
     t.modules.window = true            -- Enable the window module (boolean)
     t.modules.thread = true            -- Enable the thread module (boolean)
+
+
+	-- CONSTANTES
+	raddeg = 2*math.pi/360 -- constante de conversion pour passer des degrés en lieu et place de radian
+
+
+	-- Configuration global
+	love.graphics.setDefaultFilter("nearest", "linear") -- set le filtre d'affichage par defaut des images
+
+
+
+
 end
 
