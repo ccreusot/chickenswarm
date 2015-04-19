@@ -6,6 +6,7 @@ local sound = require("sound")
 local Chicken = require("chicken")
 local Farmer = require("farmer")
 local Zombie = require("zombie")
+local Seed = require("seed")
 
 mouse_x = 0
 mouse_y = 0
@@ -13,6 +14,7 @@ mouse_y = 0
 local zombieQuads = {} -- l'ensemble des quads de l'image zombie
 local chickenPoule = {} -- le pull de poulet
 local farmerPoule = 0 -- le fermier
+local seedPoule = 0 -- seeds
 local background = nil
 
 function love.load()
@@ -25,8 +27,12 @@ function love.load()
 	local soundPoulet = love.audio.newSource(sound.cot, "static")
 	local spriteFermier = love.graphics.newImage(asset.farmer)
 	local spriteZombie = love.graphics.newImage(asset.zombie)
-	spriteSeed = love.graphics.newImage(asset.seed)
+	local spriteSeed = love.graphics.newImage(asset.seed)
 	background = love.graphics.newImage(asset.background)
+
+	-- seed
+	seedPoule = Seed:new(400, 300, spriteSeed, 0, 3, 3, false)
+
 
 	-- Zombie quads for animations
 	table.insert(zombieQuads, love.graphics.newQuad(0, 0, 16, 16, spriteZombie:getWidth(), spriteZombie:getHeight()))
@@ -59,6 +65,9 @@ end
 function love.mousepressed(x, y, button)
 	if button == 'l' then
 		farmerPoule:launchAnimation()
+		seedPoule.x = x
+		seedPoule.y = y
+		seedPoule.active = true
 	end
 end
 
@@ -67,7 +76,6 @@ function love.update(delta_time)
 		mouse_x = love.mouse.getX()
 		mouse_y = love.mouse.getY()
 		for k,v in ipairs(chickenPoule) do
-			--print(k)
 			v:update(delta_time)
 		end
 				
@@ -85,6 +93,7 @@ end
 
 function love.draw()
 	love.graphics.draw(background, 0, 0, 0, 2.5)
+	seedPoule:draw()
 	farmerPoule:draw()
 	zombie:draw()
 
