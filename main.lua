@@ -1,6 +1,7 @@
 love.graphics.setDefaultFilter("nearest") -- set le filtre d'affichage par defaut des images
 
 local asset = require("sprite")
+local sound = require("sound")
 local Chicken = require("chicken")
 local Farmer = require("farmer")
 mouse_x = 0
@@ -11,16 +12,17 @@ local farmerPoule = 0; -- le fermier
 
 function love.load()
 	local spritePoulet = love.graphics.newImage(asset.chicken) -- et mon Q c'est du poulet?
+	local soundPoulet = love.audio.newSource(sound.cot, "static")
 	local spriteFermier = love.graphics.newImage(asset.farmer)
 	background = love.graphics.newImage(asset.background)
 
-	addItemTo(Chicken:new(400, 300, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
-	addItemTo(Chicken:new(200, 400, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
-	addItemTo(Chicken:new(100, 500, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
-	addItemTo(Chicken:new(200, 300, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
-	addItemTo(Chicken:new(300, 500, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
-	addItemTo(Chicken:new(300, 500, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
-	addItemTo(Chicken:new(300, 500, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(400, 300, spritePoulet, 1.5, 0, 2, 2, soundPoulet), chickenPoule)
+	addItemTo(Chicken:new(200, 400, spritePoulet, 1.5, 0, 2, 2, soundPoulet), chickenPoule)
+	addItemTo(Chicken:new(100, 500, spritePoulet, 1.5, 0, 2, 2, soundPoulet), chickenPoule)
+	addItemTo(Chicken:new(200, 300, spritePoulet, 1.5, 0, 2, 2, soundPoulet), chickenPoule)
+	addItemTo(Chicken:new(300, 500, spritePoulet, 1.5, 0, 2, 2, soundPoulet), chickenPoule)
+	addItemTo(Chicken:new(300, 500, spritePoulet, 1.5, 0, 2, 2, soundPoulet), chickenPoule)
+	addItemTo(Chicken:new(300, 500, spritePoulet, 1.5, 0, 2, 2, soundPoulet), chickenPoule)
 
 	farmerPoule = Farmer:new(400, 0, spriteFermier, 0, 5, 5)
 
