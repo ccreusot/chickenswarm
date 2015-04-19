@@ -5,7 +5,7 @@ function love.conf(t)
     t.console = true                   -- Attach a console (boolean, Windows only)
 
     t.window.title = "ChickenSwarm"        -- The window title (string)
-    t.window.icon = nil                -- Filepath to an image to use as the window's icon (string)
+    t.window.icon = "drawing/chicken.png"                -- Filepath to an image to use as the window's icon (string)
     t.window.width = 800               -- The window width (number)
     t.window.height = 600              -- The window height (number)
     t.window.borderless = false        -- Remove all border visuals from the window (boolean)
@@ -40,10 +40,6 @@ function love.conf(t)
 
 	-- CONSTANTES
 	raddeg = 2*math.pi/360 -- constante de conversion pour passer des degrés en lieu et place de radian
-
-
-	-- Configuration global
-	love.graphics.setDefaultFilter("nearest", "linear") -- set le filtre d'affichage par defaut des images
 
 
 
