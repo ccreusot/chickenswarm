@@ -2,24 +2,27 @@ love.graphics.setDefaultFilter("nearest") -- set le filtre d'affichage par defau
 
 local asset = require("sprite")
 local Chicken = require("chicken")
-
+local Farmer = require("farmer")
 mouse_x = 0
 mouse_y = 0
 
 local chickenPoule = {} -- le pull de poulet
+local farmerPoule = 0; -- le fermier
 
 function love.load()
-	local sprite = love.graphics.newImage(asset.chicken)
+	local spritePoulet = love.graphics.newImage(asset.chicken) -- et mon Q c'est du poulet?
+	local spriteFermier = love.graphics.newImage(asset.farmer)
 	background = love.graphics.newImage(asset.background)
 
-	addItemTo(Chicken:new(400, 300, sprite, 1.5, 0, 2, 2), chickenPoule)
-	addItemTo(Chicken:new(200, 400, sprite, 1.5, 0, 2, 2), chickenPoule)
-	addItemTo(Chicken:new(100, 500, sprite, 1.5, 0, 2, 2), chickenPoule)
-	addItemTo(Chicken:new(200, 300, sprite, 1.5, 0, 2, 2), chickenPoule)
-	addItemTo(Chicken:new(300, 500, sprite, 1.5, 0, 2, 2), chickenPoule)
-	addItemTo(Chicken:new(300, 500, sprite, 1.5, 0, 2, 2), chickenPoule)
-	addItemTo(Chicken:new(300, 500, sprite, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(400, 300, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(200, 400, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(100, 500, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(200, 300, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(300, 500, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(300, 500, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
+	addItemTo(Chicken:new(300, 500, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
 
+	farmerPoule = Farmer:new(400, 0, spriteFermier, 0, 5, 5)
 
 
 end
@@ -45,10 +48,12 @@ end
 
 function love.draw()
 	love.graphics.draw(background, 0, 0, 0, 2.5)
+	farmerPoule:draw()
 	for k,v in ipairs(chickenPoule) do
 		--print(k)
 		v:draw()
 	end
+	
 end
 
 
