@@ -27,4 +27,10 @@ function utils.point_distance(x, y, x2, y2)
     return distance
 end
 
+function utils.circles_collision(x, y, r, x2, y2, r2)
+    local delta = (x - x2) * (x - x2) + (y - y2) * (y  - y2)
+    local rDelta  = (r + r2) * (r + r2)
+    return (delta < rDelta)
+end
+
 return utils
