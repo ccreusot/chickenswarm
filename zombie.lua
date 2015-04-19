@@ -44,7 +44,8 @@ function Zombie:load()
 end
 
 function Zombie:draw()
-	local offsetX = (self.img:getWidth() / 2)
+	local x, y, w, h = self.quads[math.floor(self.index_img)]:getViewport()
+	local offsetX = (w / 2)
 	love.graphics.draw(self.img, self.quads[math.floor(self.index_img)], self.x, self.y, self.d*raddeg, self.sx, self.sy, offsetX)
 end
 
@@ -57,7 +58,7 @@ function Zombie:update(delta_time)
 		end
 	end
 
-	self.index_img = (self.index_img + 1 * delta_time)
+	self.index_img = (self.index_img + 10 * delta_time)
 	if (self.index_img > #self.quads or self.index_img < 1) then
 		self.index_img = 1
 	end

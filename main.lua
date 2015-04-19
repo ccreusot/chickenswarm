@@ -27,11 +27,13 @@ function love.load()
 	local spriteZombie = love.graphics.newImage(asset.zombie)
 	background = love.graphics.newImage(asset.background)
 
+	-- Zombie quads for animations
 	table.insert(zombieQuads, love.graphics.newQuad(0, 0, 16, 16, spriteZombie:getWidth(), spriteZombie:getHeight()))
 	table.insert(zombieQuads, love.graphics.newQuad(16, 0, 16, 16, spriteZombie:getWidth(), spriteZombie:getHeight()))
 	table.insert(zombieQuads, love.graphics.newQuad(32, 0, 16, 16, spriteZombie:getWidth(), spriteZombie:getHeight()))
 	table.insert(zombieQuads, love.graphics.newQuad(48, 0, 16, 16, spriteZombie:getWidth(), spriteZombie:getHeight()))
 
+	-- Chicken flock
 	addItemTo(Chicken:new(400, 300, spritePoulet, 1.5, 0, 2, 2, soundPoulet), chickenPoule)
 	addItemTo(Chicken:new(200, 400, spritePoulet, 1.5, 0, 2, 2, soundPoulet), chickenPoule)
 	addItemTo(Chicken:new(100, 500, spritePoulet, 1.5, 0, 2, 2, soundPoulet), chickenPoule)
@@ -40,10 +42,23 @@ function love.load()
 	addItemTo(Chicken:new(300, 500, spritePoulet, 1.5, 0, 2, 2, soundPoulet), chickenPoule)
 	addItemTo(Chicken:new(300, 500, spritePoulet, 1.5, 0, 2, 2, soundPoulet), chickenPoule)
 
-	farmerPoule = Farmer:new(400, 0, spriteFermier, 0, 5, 5)
+	-- fermier quads
+	local fermierQuads = {}
+	table.insert(fermierQuads, love.graphics.newQuad(0, 0, 16, 16, spriteFermier:getWidth(), spriteFermier:getHeight()))
+	table.insert(fermierQuads, love.graphics.newQuad(16, 0, 16, 16, spriteFermier:getWidth(), spriteFermier:getHeight()))
+	table.insert(fermierQuads, love.graphics.newQuad(32, 0, 16, 16, spriteFermier:getWidth(), spriteFermier:getHeight()))
+	table.insert(fermierQuads, love.graphics.newQuad(48, 0, 16, 16, spriteFermier:getWidth(), spriteFermier:getHeight()))
 
-	zombie = Zombie:new(700, 400, spriteZombie, zombieQuads, 0.05, 0, 5, 5)
+	farmerPoule = Farmer:new(400, 0, spriteFermier, fermierQuads, 0, 5, 5)
+
+	zombie = Zombie:new(700, 400, spriteZombie, zombieQuads, 0.15, 0, 5, 5)
 	zombie:setTarget(farmerPoule)
+end
+
+function love.mousepressed(x, y, button)
+	if button == 'l' then
+		farmerPoule:launchAnimation()
+	end
 end
 
 function love.update(delta_time)
@@ -63,6 +78,7 @@ function love.update(delta_time)
 			end
 		end
 	end
+	farmerPoule:update(delta_time)
 	zombie:update(delta_time)
 end
 
