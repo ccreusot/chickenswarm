@@ -1,18 +1,30 @@
 love.graphics.setDefaultFilter("nearest") -- set le filtre d'affichage par defaut des images
 
+local utils = require("utils")
 local asset = require("sprite")
 local Chicken = require("chicken")
 local Farmer = require("farmer")
+local Zombie = require("zombie")
+
 mouse_x = 0
 mouse_y = 0
 
+local zombieQuads = {} -- l'ensemble des quads de l'image zombie
 local chickenPoule = {} -- le pull de poulet
-local farmerPoule = 0; -- le fermier
+local farmerPoule = 0 -- le fermier
+local background = nil
 
 function love.load()
 	local spritePoulet = love.graphics.newImage(asset.chicken) -- et mon Q c'est du poulet?
 	local spriteFermier = love.graphics.newImage(asset.farmer)
+	local spriteZombie = love.graphics.newImage(asset.zombie)
 	background = love.graphics.newImage(asset.background)
+
+
+	table.insert(zombieQuads, love.graphics.newQuad(0, 0, 16, 16, spriteZombie:getWidth(), spriteZombie:getHeight()))
+	table.insert(zombieQuads, love.graphics.newQuad(16, 0, 16, 16, spriteZombie:getWidth(), spriteZombie:getHeight()))
+	table.insert(zombieQuads, love.graphics.newQuad(32, 0, 16, 16, spriteZombie:getWidth(), spriteZombie:getHeight()))
+	table.insert(zombieQuads, love.graphics.newQuad(48, 0, 16, 16, spriteZombie:getWidth(), spriteZombie:getHeight()))
 
 	addItemTo(Chicken:new(400, 300, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
 	addItemTo(Chicken:new(200, 400, spritePoulet, 1.5, 0, 2, 2), chickenPoule)
@@ -24,7 +36,8 @@ function love.load()
 
 	farmerPoule = Farmer:new(400, 0, spriteFermier, 0, 5, 5)
 
-
+	zombie = Zombie:new(800, 300, spriteZombie, zombieQuads, 0.25, 0, 5, 5)
+	zombie:setTarget(farmerPoule)
 end
 
 function love.update(delta_time)
@@ -44,11 +57,14 @@ function love.update(delta_time)
 			end
 		end
 	end
+	zombie:update(delta_time)
 end
 
 function love.draw()
 	love.graphics.draw(background, 0, 0, 0, 2.5)
 	farmerPoule:draw()
+	zombie:draw()
+
 	for k,v in ipairs(chickenPoule) do
 		--print(k)
 		v:draw()
