@@ -22,4 +22,9 @@ function utils.point_direction(x, y, x2, y2)
     return direction
 end
 
+function utils.point_distance(x, y, x2, y2)
+    local distance = math.sqrt(((x2 - x) * (x2 - x)) + ((y2 - y) * (y2 - y)))
+    return distance
+end
+
 return utils
