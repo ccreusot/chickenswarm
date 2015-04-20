@@ -66,11 +66,14 @@ function love.load()
 
 end
 
+-- event triggered when mouse is pressed
 function love.mousepressed(x, y, button)
 	if button == 'l' then
 		farmerPoule:launchAnimation()
 		seedPoule.x = x
 		seedPoule.y = y
+		mouse_x = x
+		mouse_y = y
 	end
 end
 
@@ -97,11 +100,6 @@ function love.update(delta_time)
 				v:collide(v2)
 			end
 		end
-	end
-	if love.mouse.isDown('l') then
-		mouse_x = love.mouse.getX()
-		mouse_y = love.mouse.getY()
-		
 	end
 	farmerPoule:update(delta_time)
 end
@@ -136,6 +134,7 @@ end
 function removeItemFrom(item, from)
 	table.remove(from, item)
 end
+
 
 
 
