@@ -8,8 +8,8 @@ local Farmer = require("farmer")
 local Zombie = require("zombie")
 local Seed = require("seed")
 
-mouse_x = 0
-mouse_y = 0
+mouse_x = 400
+mouse_y = 300
 
 local zombieQuads = {} -- l'ensemble des quads de l'image zombie
 local chickenPoule = {} -- le pull de poulets
@@ -20,7 +20,7 @@ local background = nil
 
 function love.load()
 	bgm = love.audio.newSource(sound.bg, "stream")
-	love.audio.setVolume( 1 )
+	love.audio.setVolume( 0.5 )
 	love.audio.play(bgm)
 	bgm:setLooping( 1 )
 
@@ -32,7 +32,7 @@ function love.load()
 	background = love.graphics.newImage(asset.background)
 
 	-- seed
-	seedPoule = Seed:new(400, 300, spriteSeed, 0, 3, 3, false)
+	seedPoule = Seed:new(400, 300, spriteSeed, 0, 3, 3)
 
 
 	-- Zombie quads for animations
@@ -59,7 +59,6 @@ function love.load()
 
 	farmerPoule = Farmer:new(400, 0, spriteFermier, fermierQuads, 0, 5, 5)
 
-	
 	addItemTo(Zombie:new(700, 400, spriteZombie, zombieQuads, 0.15, 0, 5, 5, 1), zombiePoule)
 	for k,v in ipairs(zombiePoule) do
 		v:setTarget(farmerPoule)
@@ -72,7 +71,6 @@ function love.mousepressed(x, y, button)
 		farmerPoule:launchAnimation()
 		seedPoule.x = x
 		seedPoule.y = y
-		seedPoule.active = true
 	end
 end
 
@@ -123,10 +121,6 @@ function love.draw()
 	end
 	
 end
-
-
-
-
 
 
 -- Rajoute un item dans une liste

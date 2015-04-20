@@ -19,7 +19,6 @@ function Seed:new(x, y, img, d, sx, sy, active)
 		d= d, -- default 0
 		sx= sx, --default 0
 		sy= sy, --default 0
-		active= active,
 		r = img:getWidth()*sx/2,
 		cr = 0.2*img:getWidth()*sx/2
 	}
@@ -33,10 +32,8 @@ function Seed:new(x, y, img, d, sx, sy, active)
 end
 
 function Seed:draw()
-	if self.active then
-		local offsetX = (self.img:getWidth() / 2)
-		love.graphics.draw(self.img, self.x, self.y, self.d*raddeg, self.sx, self.sy, offsetX)
-	end
+	local offsetX = (self.img:getWidth() / 2)
+	love.graphics.draw(self.img, self.x, self.y, self.d*raddeg, self.sx, self.sy, offsetX)
 end
 
 function Seed:update(delta_time)
