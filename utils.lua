@@ -35,7 +35,7 @@ end
 
 -- Methode pour dump les table
 -- le parametre est la table a dump
-function print_r ( t )  
+function utils.print_r ( t )  
     local print_r_cache={}
     local function sub_print_r(t,indent)
         if (print_r_cache[tostring(t)]) then
