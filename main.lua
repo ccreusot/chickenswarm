@@ -67,8 +67,8 @@ function love.load()
 end
 
 -- event triggered when mouse is pressed
-function love.mousepressed(x, y, button)
-	if button == 'l' then
+function love.mousepressed(x, y, button, istouch)
+	if button == 1 then
 		farmerPoule:launchAnimation()
 		seedPoule.x = x
 		seedPoule.y = y

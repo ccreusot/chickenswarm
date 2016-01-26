@@ -68,9 +68,9 @@ function Chicken:update(delta_time)
 		self.y = self.y + utils.lengthdir_y(direction, self.speed) + utils.lengthdir_x(direction + 90, shift)
 	end
 
-	if self.x > love.window.getWidth() then self.x = love.window.getWidth() end
+	if self.x > love.graphics.getWidth() then self.x = love.graphics.getWidth() end
 	if self.x < 0 then self.x = 0 end
-	if self.y > love.window.getHeight() - 60 then self.y = love.window.getHeight() - 60 end
+	if self.y > love.graphics.getHeight() - 60 then self.y = love.graphics.getHeight() - 60 end
 	if self.y < 20 then self.y = 20 end
 
 end

@@ -33,7 +33,7 @@ function utils.circles_collision(x, y, r, x2, y2, r2)
     return (delta < rDelta)
 end
 
--- Methode pour dump les table
+-- Methode pour dump les tables
 -- le parametre est la table a dump
 function utils.print_r ( t )  
     local print_r_cache={}
